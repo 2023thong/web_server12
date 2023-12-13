@@ -29,6 +29,34 @@
 
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
+    <style>
+        .product-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.product-table th, .product-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.product-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.product-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.product-table tr:hover {
+  background-color: #ddd;
+}
+
+
+
+    </style>
     
     
 
@@ -57,16 +85,25 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        
+                    
                         <span>Admin</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="/auth/login" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Quản Lý</a>
-                    <a href="/kho" class="nav-item nav-link active"><i class="fa fa-th me-2"></i>Kho Hàng</a>
-                    <a href="/themnhanvien" class="nav-item nav-link  "><i class="fa fa-keyboard me-2"></i>Quản lý nhân viên</a>
+                    <a href="/auth/login" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Quản Lý</a>
+                    {{!-- <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="button.html" class="dropdown-item">Buttons</a>
+                            <a href="typography.html" class="dropdown-item">Typography</a>
+                            <a href="element.html" class="dropdown-item">Other Elements</a>
+                        </div>
+                    </div> --}}
+                    <a href="/kho" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Kho Hàng</a>
+                
+                   <a href="/themnhanvien" class="nav-item nav-link  "><i class="fa fa-keyboard me-2"></i>Quản lý nhân viên</a>
                     <a href="/themmenu" class="nav-item nav-link "><i class="fa fa-table me-2"></i>Quản lý Menu</a>
-                    <a href="qldoanhthu.hbs" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Quản lý doanh thu</a>
+                    <a href="/doanhthu1" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Quản lý doanh thu</a>
                 </div>
             </nav>
         </div>
@@ -88,11 +125,11 @@
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                       
+                        
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="http://localhost:8000/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -123,90 +160,53 @@
                             <a href="#" class="dropdown-item text-center">See all message</a>
                         </div>
                     </div>
-                    <div class="nav-item dropdown" style=" margin-top: 10px; margin-bottom: 10px; margin-right: 20px;">
-                        <a href="/myprofile" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Tài khoản
+                     <div class="nav-item dropdown" style=" margin-top: 10px; margin-bottom: 10px; margin-right: 20px;">
+                        {{!-- <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> --}}
                             <img class="rounded-circle me-lg-2" src="http://localhost:8000/img/user.jpg" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex"> {{#each tenNv}}
                                <p>Xin chào {{this}}</p>
                              {{/each}}</span>
-                        </a>
+                        {{!-- </a> --}}
                        
                     </div>
                 </div>
             </nav>
-           <div class="row">
-            <h1 style="text-align: center; margin-top: 50px; ">Thông Tin Hàng Nhập Kho</h1>
-        <div class="col-lg-5 col-md-7 col-sm-9 col-11 mx-auto">       
-          <div class="grid">
-            <div class="grid-body">
-              <div class="row">
-                <div class="col-lg-15 col-md-15 col-sm-15 col-15 mx-auto form-wrapper">
-                <div class="form-container">
-                               
-                  <form action="/auth/kho" method="POST" style="margin-top: 20px;">                 
-  <div class="form-group input-rounded">
-    <input type="text" class="form-control" placeholder="Mã hàng hóa" id="maHH" name="maHH" style="margin-bottom: 5px; padding: 10px; top: 10px;"/>
-  </div>
-
-  <select id="MaNcc" name="maNcc" style="margin-bottom: 5px; width: 100px;">
-    {{#each data}}
-      {{#if this.MaNcc}}
-        <option value="{{this.MaNcc}}">{{this.MaNcc}}</option>
-      {{/if}}
-    {{/each}}
-  </select>
-
-  <a href="/hiennhacungcap1">Cập nhật</a>
-
-  <select id="MaLh" name="maLh" style="margin-bottom: 5px; width: 100px;">
-    {{#each data}}
-    {{#if this.TenLh}}
-    <option value="{{this.TenLh}}">{{this.TenLh}}</option>
-    {{/if}}
-    {{/each}}
-  </select>
-
-  <div class="form-group input-rounded">
-    <input type="text" class="form-control" placeholder="Tên hàng hóa" id="TenHh" name="tenHh" style="margin-bottom: 5px; padding: 10px;"/>
-  </div> 
-
-  <div class="form-group input-rounded">
-    <input type="text" class="form-control" placeholder="Giá sản phẩm" id="GiaSp" name="giaSp" style="margin-bottom: 5px; padding: 10px;"/>
-  </div>
-
-  <div class="form-group input-rounded">
-    <input type="text" class="form-control" placeholder="Ghi chú" id="Ghichu" name="ghichu" style="margin-bottom: 5px; padding: 10px;"/>
-  </div>
-
-  <div class="form-group input-rounded">
-    <input type="text" class="form-control" placeholder="Số lượng" id="Soluong" name="soluong" style="margin-bottom: 5px; padding: 10px;"/>
-  </div> 
-
-  <div style="display: flex; justify-content: space-between;">
-    <button type="submit" class="btn btn-primary" style="flex: 1; margin-right: 10px;"> Thêm </button>
-    <a href="/hienkho" class="btn btn-primary" style="flex: 1;">Kho</a>
-  </div>
-</form>
-
-{{#if message}}
-  <h4 class="alert alert-danger mt-4">{{message}}</h4>
+            
+ 
+    {{#if err}}
+  <h4 class="alert alert-danger mt-4">{{err}}</h4>
     {{/if}}
 
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> 
     
-    
-    <script src="js/main.js"></script> 
 
-    
-    <script>
+
+
         
 
+           
+
+      
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+   
+
+
+
+
+   
+    
+    
 </body>
 
 </html>
