@@ -91,7 +91,7 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
+                <form class="d-none d-md-flex ms-4">k
                     <input class="form-control border-0" type="search" placeholder="Search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
@@ -172,24 +172,20 @@
                                         {{#each employee}}
                                         <form action="/auth/capNhatMenu" method="POST" style="margin-top: 20px;">
                                             <div class="form-group input-rounded">
-                                                <input type="text" class="form-control" placeholder="Mã Menu"
-                                                    id="MaMn" value="{{this.MaMn}}" name="maMn"
+                                                <input type="text" class="form-control" placeholder="Mã Menu" id="MaMn" value="{{this.MaMn}}" name="maMn"
                                                     style=" margin-bottom: 5px; padding: 10px; top: 10px;" readonly />
                                             </div>
                                             <div class="form-group input-rounded">
-                                                <input type="text" class="form-control" placeholder="Tên đồ uống"
-                                                    id="TenDu" value="{{this.TenDu}}" name="tenmn"
+                                                <input type="text" class="form-control" placeholder="Tên đồ uống" id="TenDu" value="{{this.TenDu}}" name="tenmn"
                                                     style=" margin-bottom: 5px; padding: 10px;" />
                                             </div>
                                             <div class="form-group input-rounded">
-                                                <input type="text" class="form-control" placeholder="Giá tiền"
-                                                    id="Giatien" value="{{this.Giatien}}" name="giatien"
-                                                    style=" margin-bottom: 5px;  padding: 10px;" />
+                                                <input type="text" class="form-control" placeholder="Giá tiền" id="Giatien" value="{{this.Giatien}}"
+                                                    name="giatien" style=" margin-bottom: 5px;  padding: 10px;" />
                                             </div>
                                             <div class="form-group input-rounded">
-                                                <input type="text" class="form-control" placeholder="Tên Loại hàng"
-                                                    id="TenLh" value="{{this.TenLh}}" name="tenLh"
-                                                    style=" margin-bottom: 5px;  padding: 10px;" />
+                                                <input type="text" class="form-control" placeholder="Tên Loại hàng" id="TenLh" value="{{this.TenLh}}"
+                                                    name="tenLh" style=" margin-bottom: 5px;  padding: 10px;" readonly/>
                                             </div>
                                             {{!-- <a href="/hiensuamenu1">Cập nhật</a>
                                             <select id="TenLh" name="tenLh" style="margin-bottom: 5px; width: 100px;">
@@ -200,10 +196,9 @@
                                                 {{/each}}
                                             </select> --}}
                                             <div style="display: flex; justify-content: space-between;">
-                                                <button type="submit" class="btn btn-primary"
-                                                    style="flex: 1; margin-right: 10px;"> Sửa </button>
+                                                <button type="submit" class="btn btn-primary" style="flex: 1; margin-right: 10px;"> Sửa </button>
                                                 <a href="/hienmenu" class="btn btn-primary" style="flex: 1;">Danh
-                                                    sách nhân viên</a>
+                                                    sách Menu</a>
                                             </div>
                                         </form>
                                         {{/each}}

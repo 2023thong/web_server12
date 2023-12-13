@@ -72,6 +72,8 @@ router.get("/hienkho", authController.hienkho);
 router.get("/hiennhacungcap", authController.hiennhacungcap);
 router.get("/hiennhacungcap1", authController.hiennhacungcap1);
 router.get("/hienmenu1", authController.hienmenu1);
+1;
+// router.get("/hiensuamenu1", authController.hiensuamenu1);
 router.get("/hienloaihang", authController.hienloaihang);
 // router.get("/hienloaihang1", authController.hienloaihang1);
 

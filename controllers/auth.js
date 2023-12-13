@@ -109,7 +109,7 @@ exports.capNhatNhanVien = (req, res) => {
       if (error) {
         console.log(error);
         return res.render("editttnhanvien", {
-          message: "Cập nhật nhân viên thất bại",
+          message: "Cập nhật nhân viên thất bại111",
         });
       } else {
         console.log(results);
@@ -452,22 +452,23 @@ exports.hiennhacungcap1 = (req, res) => {
     }
   );
 };
-// exports.hienmenu1 = (req, res) => {
-//   dB.query(
-//     "SELECT TenLh FROM loaihang WHERE TenLh IS NOT NULL;",
-//     (err, results, fields) => {
-//       if (err) {
-//         console.error("Lỗi truy vấn:", err);
-//         return;
-//       }
+exports.hienmenu1 = (req, res) => {
+  dB.query(
+    "SELECT TenLh FROM loaihang WHERE TenLh IS NOT NULL;",
+    (err, results, fields) => {
+      if (err) {
+        console.error("Lỗi truy vấn:", err);
+        return;
+      }
 
-//       // Xử lý kết quả dữ liệu ở đây
-//       console.log("Dữ liệu từ bảng loaihang:", results);
+      // Xử lý kết quả dữ liệu ở đây
+      console.log("Dữ liệu từ bảng loaihang:", results);
 
-//       // Hiển thị trang HTML với dữ liệu từ cơ sở dữ liệu
-//       res.render("qlmenu", { data: results });
-//     }
-//   );
+      // Hiển thị trang HTML với dữ liệu từ cơ sở dữ liệu
+      res.render("qlmenu", { data: results });
+    }
+  );
+};
 // };
 exports.hiensuamenu1 = (req, res) => {
   dB.query(
@@ -477,7 +478,6 @@ exports.hiensuamenu1 = (req, res) => {
         console.error("Lỗi truy vấn:", err);
         return;
       }
-
       // Xử lý kết quả dữ liệu ở đây
       console.log("Dữ liệu từ bảng loaihang:", results);
 
