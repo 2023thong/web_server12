@@ -157,9 +157,9 @@
 
   <select id="MaLh" name="maLh" style="margin-bottom: 5px; width: 100px;">
     {{#each data}}
-      {{#if this.TenLh}}
-        <option value="{{this.TenLh}}">{{this.TenLh}}</option>
-      {{/if}}
+    {{#if this.TenLh}}
+    <option value="{{this.TenLh}}">{{this.TenLh}}</option>
+    {{/if}}
     {{/each}}
   </select>
 
@@ -184,9 +184,11 @@
     <a href="/hienkho" class="btn btn-primary" style="flex: 1;">Kho</a>
   </div>
 </form>
+
 {{#if message}}
   <h4 class="alert alert-danger mt-4">{{message}}</h4>
     {{/if}}
+
                   
                 </div>
               </div>
