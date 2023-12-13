@@ -39,58 +39,41 @@ exports.kho = (req, res) => {
   console.log(req.body);
   console.log("Dữ liệu từ cơ sở dữ liệu nhanvien2:", tenNv);
 
-  const { maHH, maNcc, maLh, tenHh, giaSp, ghichu, soluong } = req.body;
+  const { maNcc, maLh, tenHh, giaSp, ghichu, soluong } = req.body;
+
+  if (!maNcc || !maLh || !tenHh || !giaSp || !ghichu || !soluong) {
+    return res.render("kho", {
+      message: "Vui lòng điền đầy đủ thông tin",
+    });
+  }
 
   dB.query(
-    "SELECT MaHH FROM hanghoa WHERE MaHH = ?",
-    [maHH],
-    async (errorSelect, resultsSelect) => {
-      if (errorSelect) {
-        console.error("Error selecting from database:", errorSelect);
-        return res.status(500).send("Internal Server Error");
-      }
-
-      if (resultsSelect && resultsSelect.length > 0) {
+    "INSERT INTO hanghoa SET ?",
+    {
+      MaNcc: maNcc,
+      TenLh: maLh,
+      TenHh: tenHh,
+      GiaSp: giaSp,
+      Ghichu: ghichu,
+      Soluong: soluong,
+    },
+    (errorInsert, resultsInsert) => {
+      if (errorInsert) {
         return res.render("kho", {
-          message: "Mã đã tồn tại",
+          message: "Vui lòng chọn nhà cung cấp, loại hàng",
+        });
+      } else {
+        console.log(resultsInsert);
+        return res.render("kho", {
+          message: "Thêm hàng thành công!",
+          Title: "Hien thi kho",
+          tenNv: [tenNv],
         });
       }
-
-      if (!maHH || !maNcc || !maLh || !tenHh || !giaSp || !ghichu || !soluong) {
-        return res.render("kho", {
-          message: "Vui lòng điền đầy đủ thông tin",
-        });
-      }
-
-      dB.query(
-        "INSERT INTO hanghoa SET ?",
-        {
-          MaHH: maHH,
-          MaNcc: maNcc,
-          TenLh: maLh,
-          TenHh: tenHh,
-          GiaSp: giaSp,
-          Ghichu: ghichu,
-          Soluong: soluong,
-        },
-        (errorInsert, resultsInsert) => {
-          if (errorInsert) {
-            return res.render("kho", {
-              message: "Vui lòng chọn nhà cung cấp, loại hàng",
-            });
-          } else {
-            console.log(resultsInsert);
-            return res.render("kho", {
-              message: "Thêm hàng thành công!",
-              Title: "Hien thi kho",
-              tenNv: [tenNv],
-            });
-          }
-        }
-      );
     }
   );
 };
+
 exports.capNhatNhanVien = (req, res) => {
   console.log(req.body);
 
@@ -283,7 +266,9 @@ exports.myprofile = (req, res) => {
 
     // Hiển thị trang HTML với dữ liệu từ cơ sở dữ liệu
 
-    res.render("hienthikho", { hanghoa: results });
+
+    res.render("myprofile", { hanghoa: results });
+
   });
 };
 //hiện menu
@@ -317,6 +302,7 @@ exports.hienmenu = (req, res) => {
 exports.loaihang = (req, res) => {
   console.log(req.body);
 
+
   const { tenlh, ghichu } = req.body;
   if (!tenlh) {
     return res.render("loaihang", {
@@ -340,9 +326,11 @@ exports.loaihang = (req, res) => {
     }
   );
 };
+
 exports.getLoaiHangList = (req, res) => {
   // Thực hiện truy vấn SQL để lấy danh sách loại hàng
   const sql = "SELECT TenLh FROM loaihang";
+
 
   dB.query(sql, (error, results) => {
     if (error) {
@@ -389,7 +377,6 @@ exports.hienloaihang = (req, res) => {
 //     res.render("kho", { loaihang1: results });
 //   });
 // };
-
 
 
 exports.hienkho = (req, res) => {
@@ -485,23 +472,25 @@ exports.hiennhacungcap1 = (req, res) => {
     }
   );
 };
-// exports.hienmenu1 = (req, res) => {
-//   dB.query(
-//     "SELECT TenLh FROM loaihang WHERE TenLh IS NOT NULL;",
-//     (err, results, fields) => {
-//       if (err) {
-//         console.error("Lỗi truy vấn:", err);
-//         return;
-//       }
 
-//       // Xử lý kết quả dữ liệu ở đây
-//       console.log("Dữ liệu từ bảng loaihang:", results);
+exports.hienmenu1 = (req, res) => {
+  dB.query(
+    "SELECT TenLh FROM loaihang WHERE TenLh IS NOT NULL;",
+    (err, results, fields) => {
+      if (err) {
+        console.error("Lỗi truy vấn:", err);
+        return;
+      }
 
-//       // Hiển thị trang HTML với dữ liệu từ cơ sở dữ liệu
-//       res.render("qlmenu", { data: results });
-//     }
-//   );
-// };
+      // Xử lý kết quả dữ liệu ở đây
+      console.log("Dữ liệu từ bảng loaihang:", results);
+
+      // Hiển thị trang HTML với dữ liệu từ cơ sở dữ liệu
+      res.render("qlmenu", { data: results });
+    }
+  );
+};
+
 exports.hiensuamenu1 = (req, res) => {
   dB.query(
     "SELECT TenLh FROM loaihang WHERE TenLh IS NOT NULL;",
@@ -749,6 +738,7 @@ exports.themmenu = (req, res) => {
     [maMn],
     async (errorSelect, resultsSelect) => {
       if (resultsSelect && resultsSelect.length > 0) {
+
         return res.render("qlmenu", {
           message: "Mã đã tồn tại",
         });
@@ -759,6 +749,7 @@ exports.themmenu = (req, res) => {
           message: "Vui lòng điền đầy đủ thông tin",
         });
       }
+
 
       dB.query(
         "INSERT INTO menu SET ?",
