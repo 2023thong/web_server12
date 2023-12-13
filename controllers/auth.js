@@ -266,7 +266,9 @@ exports.myprofile = (req, res) => {
 
     // Hiển thị trang HTML với dữ liệu từ cơ sở dữ liệu
 
+
     res.render("myprofile", { hanghoa: results });
+
   });
 };
 //hiện menu
@@ -294,10 +296,12 @@ exports.hienmenu = (req, res) => {
       Sdt: [Sdt],
       Diachi: [Diachi],
     });
+
   });
 };
 exports.loaihang = (req, res) => {
   console.log(req.body);
+
 
   const { tenlh, ghichu } = req.body;
   if (!tenlh) {
@@ -322,9 +326,11 @@ exports.loaihang = (req, res) => {
     }
   );
 };
+
 exports.getLoaiHangList = (req, res) => {
   // Thực hiện truy vấn SQL để lấy danh sách loại hàng
   const sql = "SELECT TenLh FROM loaihang";
+
 
   dB.query(sql, (error, results) => {
     if (error) {
@@ -353,6 +359,7 @@ exports.hienloaihang = (req, res) => {
   });
 };
 
+
 //hienbenmanhinhkho
 // exports.hienloaihang1 = (req, res) => {
 //   let successMessage = null;
@@ -370,6 +377,7 @@ exports.hienloaihang = (req, res) => {
 //     res.render("kho", { loaihang1: results });
 //   });
 // };
+
 
 exports.hienkho = (req, res) => {
   let successMessage = null;
@@ -464,6 +472,7 @@ exports.hiennhacungcap1 = (req, res) => {
     }
   );
 };
+
 exports.hienmenu1 = (req, res) => {
   dB.query(
     "SELECT TenLh FROM loaihang WHERE TenLh IS NOT NULL;",
@@ -481,6 +490,7 @@ exports.hienmenu1 = (req, res) => {
     }
   );
 };
+
 exports.hiensuamenu1 = (req, res) => {
   dB.query(
     "SELECT TenLh FROM loaihang WHERE TenLh IS NOT NULL;",
@@ -728,6 +738,7 @@ exports.themmenu = (req, res) => {
     [maMn],
     async (errorSelect, resultsSelect) => {
       if (resultsSelect && resultsSelect.length > 0) {
+
         return res.render("qlmenu", {
           message: "Mã đã tồn tại",
         });
@@ -738,6 +749,7 @@ exports.themmenu = (req, res) => {
           message: "Vui lòng điền đầy đủ thông tin",
         });
       }
+
 
       dB.query(
         "INSERT INTO menu SET ?",
@@ -859,3 +871,5 @@ exports.suanhacungcap1 = (req, res) => {
     }
   });
 };
+
+
