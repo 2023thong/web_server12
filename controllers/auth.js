@@ -320,6 +320,25 @@ exports.hienloaihang = (req, res) => {
   });
 };
 
+//hienbenmanhinhkho
+// exports.hienloaihang1 = (req, res) => {
+//   let successMessage = null;
+//   const message = successMessage;
+
+//   dB.query("SELECT * FROM loaihang", (err, results, fields) => {
+//     if (err) {
+//       console.error("Lỗi truy vấn:", err);
+//       return;
+//     }
+//     // Xử lý kết quả dữ liệu ở đây
+//     console.log("Dữ liệu từ cơ sở dữ liệu loaihang:", results);
+
+//     // Hiển thị trang HTML với dữ liệu từ cơ sở dữ liệu
+//     res.render("kho", { loaihang1: results });
+//   });
+// };
+
+
 exports.hienkho = (req, res) => {
   let successMessage = null;
   const message = successMessage;
@@ -718,3 +737,4 @@ exports.suanhacungcap1 = (req, res) => {
     }
   });
 };
+
