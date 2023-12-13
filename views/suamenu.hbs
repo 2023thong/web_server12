@@ -25,10 +25,10 @@
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
 
 
@@ -37,12 +37,12 @@
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner"
+        {{!-- <div id="spinner"
             class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
-        </div>
+        </div> --}}
         <!-- Spinner End -->
 
 
@@ -61,24 +61,16 @@
                         </div>
                     </div>
                     <div class="ms-3">
+
                         <span>Admin</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="/auth/login" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Quản
-                        Lý</a>
-                    {{!-- <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-laptop me-2"></i>Elements</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="button.html" class="dropdown-item">Buttons</a>
-                            <a href="typography.html" class="dropdown-item">Typography</a>
-                            <a href="element.html" class="dropdown-item">Other Elements</a>
-                        </div>
-                    </div> --}}
-                    <a href="/kho" class="nav-item nav-link "><i class="fa fa-th me-2"></i>Kho Hàng</a>
-                    <a href="/themnhanvien" class="nav-item nav-link  "><i class="fa fa-keyboard me-2"></i>Quản lý nhân
-                        viên</a>
+                    <a href="/auth/login" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Quản Lý</a>
+
+                    <a href="/kho" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Kho Hàng</a>
+                    <a href="/themnhanvien" class="nav-item nav-link active "><i class="fa fa-keyboard me-2"></i>Quản lý
+                        nhân viên</a>
                     <a href="/themmenu" class="nav-item nav-link "><i class="fa fa-table me-2"></i>Quản lý Menu</a>
                     <a href="/doanhthu1" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Quản lý doanh
                         thu</a>
@@ -142,24 +134,33 @@
                             <a href="#" class="dropdown-item text-center">See all message</a>
                         </div>
                     </div>
-
-                     <div class="nav-item dropdown" style=" margin-top: 10px; margin-bottom: 10px; margin-right: 20px;">
-                       <a href="/myprofile" >Tài khoản
-                            <img class="rounded-circle me-lg-2" src="http://localhost:8000/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex"> {{#each tenNv}}
-                               <p>Xin chào {{this}}</p>
-                             {{/each}}</span>
-
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Notificatin</span>
                         </a>
+
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="http://localhost:8000/img/user.jpg" alt=""
+                                style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="#" class="dropdown-item">Settings</a>
+                            <a href="#" class="dropdown-item">Log Out</a>
+                        </div>
                     </div>
                 </div>
             </nav>
             <!-- Navbar End -->
 
 
-            <!-- 404 Start -->
+
             <div class="row">
-                <h1 style="text-align: center; margin-top: 50px; ">Thêm nhà cung cấp</h1>
+                <h1 style="text-align: center; margin-top: 50px; ">Sửa Thông Tin Menu</h1>
                 <div class="col-lg-5 col-md-7 col-sm-9 col-11 mx-auto">
 
 
@@ -168,31 +169,44 @@
                             <div class="row">
                                 <div class="col-lg-15 col-md-15 col-sm-15 col-15 mx-auto form-wrapper">
                                     <div class="form-container">
-
-                                        <form action="/auth/nhacungcap" method="POST" style="margin-top: 20px;">
+                                        {{#each employee}}
+                                        <form action="/auth/capNhatMenu" method="POST" style="margin-top: 20px;">
                                             <div class="form-group input-rounded">
-                                                <input type="text" class="form-control" placeholder="Tên nhà cung cấp"
-                                                    id="email" name="tennc"
-                                                    style=" margin-bottom: 5px; padding: 10px; top: 10px;" />
+                                                <input type="text" class="form-control" placeholder="Mã Menu"
+                                                    id="MaMn" value="{{this.MaMn}}" name="maMn"
+                                                    style=" margin-bottom: 5px; padding: 10px; top: 10px;" readonly />
                                             </div>
                                             <div class="form-group input-rounded">
-                                                <input type="text" class="form-control" placeholder="Địa chỉ" id="MaNcc"
-                                                    name="diachi" style=" margin-bottom: 5px; padding: 10px;" />
+                                                <input type="text" class="form-control" placeholder="Tên đồ uống"
+                                                    id="TenDu" value="{{this.TenDu}}" name="tenmn"
+                                                    style=" margin-bottom: 5px; padding: 10px;" />
                                             </div>
                                             <div class="form-group input-rounded">
-                                                <input type="text" class="form-control" placeholder="Số điện thoại"
-                                                    id="MaLh" name="sdt" style=" margin-bottom: 5px;  padding: 10px;" />
+                                                <input type="text" class="form-control" placeholder="Giá tiền"
+                                                    id="Giatien" value="{{this.Giatien}}" name="giatien"
+                                                    style=" margin-bottom: 5px;  padding: 10px;" />
                                             </div>
+                                            <div class="form-group input-rounded">
+                                                <input type="text" class="form-control" placeholder="Tên Loại hàng"
+                                                    id="TenLh" value="{{this.TenLh}}" name="tenLh"
+                                                    style=" margin-bottom: 5px;  padding: 10px;" />
+                                            </div>
+                                            {{!-- <a href="/hiensuamenu1">Cập nhật</a>
+                                            <select id="TenLh" name="tenLh" style="margin-bottom: 5px; width: 100px;">
+                                                {{#each data}}
+                                                {{#if this.TenLh}}
+                                                <option value="{{this.TenLh}}">{{this.TenLh}}</option>
+                                                {{/if}}
+                                                {{/each}}
+                                            </select> --}}
                                             <div style="display: flex; justify-content: space-between;">
                                                 <button type="submit" class="btn btn-primary"
-                                                    style="flex: 1; margin-right: 10px;"> Thêm </button>
-                                                <a href="/hiennhacungcap" class="btn btn-primary" style="flex: 1;">Danh
-                                                    sách</a>
+                                                    style="flex: 1; margin-right: 10px;"> Sửa </button>
+                                                <a href="/hienmenu" class="btn btn-primary" style="flex: 1;">Danh
+                                                    sách nhân viên</a>
                                             </div>
-
-
                                         </form>
-
+                                        {{/each}}
 
 
                                         {{#if message}}
@@ -205,6 +219,10 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
 
 
 

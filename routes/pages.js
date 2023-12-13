@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const authController = require("../controllers/auth");
+module.exports = router;
 
 const verifyToken = (req, res, next) => {
   const token = req.cookies.jwt; // cookiesde ki jwt adında ki token kodunu token değişkenine gönder.
@@ -19,12 +20,21 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+// Routers
+router.get("/", (req, res) => {
+  verifyToken(req, res);
+  res.render("trangchu");
+});
+
 router.get("/login", (req, res) => {
   res.render("dangnhap");
 });
 
 router.get("/kho", (req, res) => {
   res.render("kho");
+});
+router.get("/auth/login", (req, res) => {
+  res.render("trangchu");
 });
 
 router.get("/themnhanvien", (req, res) => {
@@ -33,6 +43,12 @@ router.get("/themnhanvien", (req, res) => {
 router.get("/themmenu", (req, res) => {
   res.render("qlmenu");
 });
+
+router.get("/xoamenu/:MaMn", authController.xoamenu);
+
+// router.get("/suamenu/:MaMn", authController.suamenu);
+// router.get("/hiensuamenu/:MaMn", authController.hiensuamenu);
+
 router.get("/nhacungcap", (req, res) => {
   res.render("nhacungcap");
 });
@@ -46,13 +62,16 @@ router.get("/doanhthu1", (req, res) => {
 
 router.get("/suahanghoa/:MaHH", authController.suahanghoa);
 router.get("/suanhanvien/:MaNv", authController.suanhanvien);
+router.get("/suamenu/:MaMn", authController.suamenu);
 router.get("/suanhacungcap1/:MaNcc", authController.suanhacungcap1);
+router.get("/loaihanglist", authController.getLoaiHangList);
 
 router.get("/hiennhanvien", authController.hiennhanvien);
 router.get("/hienmenu", authController.hienmenu);
 router.get("/hienkho", authController.hienkho);
 router.get("/hiennhacungcap", authController.hiennhacungcap);
 router.get("/hiennhacungcap1", authController.hiennhacungcap1);
+router.get("/hienmenu1", authController.hienmenu1);
 router.get("/hienloaihang", authController.hienloaihang);
 // router.get("/hienloaihang1", authController.hienloaihang1);
 
@@ -64,8 +83,9 @@ router.get("/xoanhanvien/:MaNv", authController.xoanhanvien);
 router.get("/doanhthu", authController.doanhthu);
 router.get("/auth/login", authController.doanhthutrangchu);
 
-
 router.get("/myprofile", authController.myprofile);
 
+
 module.exports = router;
+
 
