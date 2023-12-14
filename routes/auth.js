@@ -15,5 +15,6 @@ router.post("/doanhthu1", authController.doanhthu);
 router.post("/capNhatHangHoa", authController.capNhatHangHoa);
 router.post("/capNhatNhanVien", authController.capNhatNhanVien);
 router.post("/suanhacungcap", authController.suanhacungcap);
+router.post("/capnhatmatkhau", authController.capnhatmatkhau);
 
 module.exports = router;

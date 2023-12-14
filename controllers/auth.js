@@ -214,11 +214,29 @@ exports.login = (req, res) => {
       const userRole = results[0].Chucvu;
 
       if (userRole === "1") {
+        req.session.user = {
+          username: results[0].TenDn,
+          Hinhanh: results[0].Hinhanh,
+          tenNv: results[0].TenNv,
+          MaNv: results[0].MaNv,
+          Diachi: results[0].Diachi,
+          Sdt: results[0].Sdt,
+          Matkhau: results[0].Matkhau, // Add tenNv to the session
+          role: userRole,
+        };
+
+        console.log(`Logged in user: ${results[0].TenDn}`);
+        console.log(`Employee name: ${results[0].TenNv}`);
+        console.log(`Employee name: ${results[0].Sdt}`);
+        console.log(`Hinh anh: ${results[0].Hinhanh}`);
+
+        console.log(`Employee name: ${results[0].TenDn}`);
         // Chấp nhận đăng nhập cho người dùng với chức vụ "admin"
         const dbUsername = results[0].Username;
         const successMessage = "Login successful! Welcome, Admin.";
         return res.status(200).redirect("/auth/login");
-      } else {
+      }
+       else {
         return res.status(403).render("dangnhap", {
           message: "Bạn không đủ thẩm quyền để truy cập",
         });
@@ -246,11 +264,80 @@ exports.hienkho = (req, res) => {
     res.render("hienthikho", { hanghoa: results, tenNv: [tenNv] });
   });
 };
+exports.capnhatmatkhau = (req, res) => {
+  console.log(req.body);
+
+  const { maNv1, Matkhau1, Matkhau_new, Matkhau_new2 } = req.body;
+
+  // Kiểm tra Matkhau1 với Matkhau có trong bảng nhanvien
+  dB.query(
+    "SELECT Matkhau FROM nhanvien WHERE MaNv=?",
+    [maNv1],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        return res.render("doimatkhau1", {
+          message: "Cập nhật mật khẩu thất bại",
+        });
+      } else if (!results.length) {
+        return res.render("doimatkhau1", {
+          message: "Mã tài khoản không tồn tại",
+        });
+      } else if (results[0].Matkhau !== Matkhau1) {
+        return res.render("doimatkhau1", {
+          message: "Mật khẩu hiện tại không chính xác",
+        });
+      }
+
+      // Kiểm tra Matkhau_new và Matkhau_new2
+      if (
+        !maNv1 ||
+        !Matkhau1 ||
+        !Matkhau_new ||
+        !Matkhau_new2 ||
+        Matkhau_new === "" ||
+        Matkhau_new2 === "" ||
+        Matkhau_new !== Matkhau_new2
+      ) {
+        return res.render("doimatkhau1", {
+          message:
+            "Vui lòng điền đầy đủ thông tin hoặc mật khẩu mới không trùng khớp",
+        });
+      }
+      if (Matkhau_new === Matkhau1) {
+        return res.render("doimatkhau1", {
+          message: "Mật khẩu mới không được trùng với mật khẩu hiện tại",
+        });
+      }
+      // Thực hiện update
+      dB.query(
+        "UPDATE nhanvien SET Matkhau=? WHERE MaNv=?",
+        [Matkhau_new, maNv1],
+        (error, results) => {
+          if (error) {
+            console.log(error);
+            return res.render("doimatkhau1", {
+              message: "Cập nhật mật khẩu thất bại",
+            });
+          } else {
+            console.log(results);
+            return res.render("doimatkhau1", {
+              message: "Cập nhật mật khẩu thành công !",
+
+              Title: "Hiển thị thông tin",
+            });
+          }
+        }
+      );
+    }
+  );
+};
 exports.myprofile = (req, res) => {
-  const { username, tenNv, role, MaNv, Sdt, Diachi, Matkhau } =
+  const { username, tenNv, role, MaNv, Sdt, Diachi, Hinhanh, Matkhau } =
     req.session.user || {};
   console.log(req.body);
   console.log("Dữ liệu từ cơ sở dữ liệu nhanvien2:", tenNv);
+  console.log("Dữ liệu từ cơ sở dữ liệu nhanvien3:", Hinhanh);
   console.log("Dữ liệu từ cơ sở dữ liệu nhanvien3:", username);
   dB.query("SELECT * FROM nhanvien", (err, results, fields) => {
     if (err) {
@@ -260,13 +347,17 @@ exports.myprofile = (req, res) => {
     // Xử lý kết quả dữ liệu ở đây
     console.log("Dữ liệu từ cơ sở dữ liệu nhanvien:", results);
 
-    // Lấy data Hinhanh
-    const Hinhanh = fields["Hinhanh"];
-    console.log("Data Hinhanh:", Hinhanh);
-
     // Hiển thị trang HTML với dữ liệu từ cơ sở dữ liệu
-
-    res.render("myprofile", { hanghoa: results });
+    res.render("myprofile", {
+      Matkhau: [Matkhau],
+      nhanvien: results,
+      tenNv: [tenNv],
+      Hinhanh: [Hinhanh],
+      username: [username],
+      MaNv: [MaNv],
+      Sdt: [Sdt],
+      Diachi: [Diachi],
+    });
   });
 };
 //hiện menu
