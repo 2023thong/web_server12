@@ -123,7 +123,7 @@
                             <a href="#" class="dropdown-item text-center">See all message</a>
                         </div>
                     </div>
-                    <div class="nav-item dropdown" style=" margin-top: 10px; margin-bottom: 10px; margin-right: 20px;">
+                    <div class="nav-item dropdown" style=" margin-top: 10px;  margin-right: 20px;">
                         <a href="/myprofile" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Tài khoản
                             <img class="rounded-circle me-lg-2" src="http://localhost:8000/img/user.jpg" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex"> {{#each tenNv}}
@@ -144,9 +144,6 @@
                 <div class="form-container">
                                
                   <form action="/auth/kho" method="POST" style="margin-top: 20px;">                 
-  <div class="form-group input-rounded">
-    <input type="text" class="form-control" placeholder="Mã hàng hóa" id="maHH" name="maHH" style="margin-bottom: 5px; padding: 10px; top: 10px;"/>
-  </div>
 
   <select id="MaNcc" name="maNcc" style="margin-bottom: 5px; width: 100px;">
     {{#each data}}
