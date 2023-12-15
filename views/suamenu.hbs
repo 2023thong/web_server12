@@ -69,9 +69,9 @@
                     <a href="/auth/login" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Quản Lý</a>
 
                     <a href="/kho" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Kho Hàng</a>
-                    <a href="/themnhanvien" class="nav-item nav-link active "><i class="fa fa-keyboard me-2"></i>Quản lý
+                    <a href="/themnhanvien" class="nav-item nav-link "><i class="fa fa-keyboard me-2"></i>Quản lý
                         nhân viên</a>
-                    <a href="/themmenu" class="nav-item nav-link "><i class="fa fa-table me-2"></i>Quản lý Menu</a>
+                    <a href="/themmenu" class="nav-item nav-link active "><i class="fa fa-table me-2"></i>Quản lý Menu</a>
                     <a href="/doanhthu1" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Quản lý doanh
                         thu</a>
 
@@ -91,7 +91,7 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
+                <form class="d-none d-md-flex ms-4">k
                     <input class="form-control border-0" type="search" placeholder="Search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
@@ -169,27 +169,23 @@
                             <div class="row">
                                 <div class="col-lg-15 col-md-15 col-sm-15 col-15 mx-auto form-wrapper">
                                     <div class="form-container">
-                                        {{#each employee}}
+                                        {{#each menu}}
                                         <form action="/auth/capNhatMenu" method="POST" style="margin-top: 20px;">
                                             <div class="form-group input-rounded">
-                                                <input type="text" class="form-control" placeholder="Mã Menu"
-                                                    id="MaMn" value="{{this.MaMn}}" name="maMn"
+                                                <input type="text" class="form-control" placeholder="Mã Menu" id="MaMn" value="{{this.MaMn}}" name="maMn"
                                                     style=" margin-bottom: 5px; padding: 10px; top: 10px;" readonly />
                                             </div>
                                             <div class="form-group input-rounded">
-                                                <input type="text" class="form-control" placeholder="Tên đồ uống"
-                                                    id="TenDu" value="{{this.TenDu}}" name="tenmn"
+                                                <input type="text" class="form-control" placeholder="Tên đồ uống" id="TenDu" value="{{this.TenDu}}" name="tenmn"
                                                     style=" margin-bottom: 5px; padding: 10px;" />
                                             </div>
                                             <div class="form-group input-rounded">
-                                                <input type="text" class="form-control" placeholder="Giá tiền"
-                                                    id="Giatien" value="{{this.Giatien}}" name="giatien"
-                                                    style=" margin-bottom: 5px;  padding: 10px;" />
+                                                <input type="text" class="form-control" placeholder="Giá tiền" id="Giatien" value="{{this.Giatien}}"
+                                                    name="giatien" style=" margin-bottom: 5px;  padding: 10px;" />
                                             </div>
                                             <div class="form-group input-rounded">
-                                                <input type="text" class="form-control" placeholder="Tên Loại hàng"
-                                                    id="TenLh" value="{{this.TenLh}}" name="tenLh"
-                                                    style=" margin-bottom: 5px;  padding: 10px;" />
+                                                <input type="text" class="form-control" placeholder="Tên Loại hàng" id="TenLh" value="{{this.TenLh}}"
+                                                    name="tenLh" style=" margin-bottom: 5px;  padding: 10px;" readonly/>
                                             </div>
                                             {{!-- <a href="/hiensuamenu1">Cập nhật</a>
                                             <select id="TenLh" name="tenLh" style="margin-bottom: 5px; width: 100px;">
@@ -200,10 +196,9 @@
                                                 {{/each}}
                                             </select> --}}
                                             <div style="display: flex; justify-content: space-between;">
-                                                <button type="submit" class="btn btn-primary"
-                                                    style="flex: 1; margin-right: 10px;"> Sửa </button>
+                                                <button type="submit" class="btn btn-primary" style="flex: 1; margin-right: 10px;"> Sửa </button>
                                                 <a href="/hienmenu" class="btn btn-primary" style="flex: 1;">Danh
-                                                    sách nhân viên</a>
+                                                    sách Menu</a>
                                             </div>
                                         </form>
                                         {{/each}}

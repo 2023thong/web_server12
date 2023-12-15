@@ -74,6 +74,7 @@ exports.kho = (req, res) => {
   );
 };
 
+
 exports.capNhatNhanVien = (req, res) => {
   console.log(req.body);
 
@@ -91,9 +92,6 @@ exports.capNhatNhanVien = (req, res) => {
     (error, results) => {
       if (error) {
         console.log(error);
-        return res.render("editttnhanvien", {
-          message: "Cập nhật nhân viên thất bại",
-        });
       } else {
         console.log(results);
         return res.render("editttnhanvien", {
@@ -347,7 +345,7 @@ exports.myprofile = (req, res) => {
     // Xử lý kết quả dữ liệu ở đây
     console.log("Dữ liệu từ cơ sở dữ liệu nhanvien:", results);
 
-    // Hiển thị trang HTML với dữ liệu từ cơ sở dữ liệu
+    // Hiển thị trang HTML với dữ liệu từ cơ sở dữ liệ
 
     res.render("myprofile", {
       Matkhau: [Matkhau],
@@ -377,7 +375,6 @@ exports.hienmenu = (req, res) => {
 
     // Hiển thị trang HTML với dữ liệu từ cơ sở dữ liệu
     res.render("hienmenu", { menu: results, message: "Xóa thành công !" });
-
     res.render("myprofile", {
       Matkhau: [Matkhau],
       nhanvien: results,
@@ -387,7 +384,6 @@ exports.hienmenu = (req, res) => {
       Sdt: [Sdt],
       Diachi: [Diachi],
     });
-
   });
 };
 exports.loaihang = (req, res) => {
@@ -450,7 +446,6 @@ exports.hienloaihang = (req, res) => {
   });
 };
 
-
 //hienbenmanhinhkho
 // exports.hienloaihang1 = (req, res) => {
 //   let successMessage = null;
@@ -468,7 +463,6 @@ exports.hienloaihang = (req, res) => {
 //     res.render("kho", { loaihang1: results });
 //   });
 // };
-
 
 exports.hienkho = (req, res) => {
   let successMessage = null;
@@ -530,6 +524,53 @@ exports.nhacungcap = (req, res) => {
     }
   );
 };
+exports.capNhatNhanVien = (req, res) => {
+  console.log(req.body);
+
+  const { manv, tennv, tendn, matkhau, sdt, diachi, chucvu } = req.body;
+
+  if (!manv || !tennv || !tendn || !matkhau || !sdt || !diachi || !chucvu) {
+    return res.render("edittnhanvien", {
+      message: "Vui lòng điền đầy đủ thông tin",
+    });
+  }
+
+  dB.query(
+    "UPDATE nhanvien SET TenNv=?, TenDn=?, Matkhau=?, Sdt=?, Diachi=?, Chucvu=? WHERE MaNv=?",
+    [tennv, tendn, matkhau, sdt, diachi, chucvu, manv],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        return res.render("editttnhanvien", {
+          message: "Cập nhật nhân viên thất bại",
+        });
+      } else {
+        console.log(results);
+        return res.render("editttnhanvien", {
+          message: "Cập nhật nhân viên thành công !",
+          Title: "Hien thi danh sách nhân viên",
+        });
+      }
+    }
+  );
+};
+exports.hienmenu1 = (req, res) => {
+  dB.query(
+    "SELECT TenLh FROM loaihang WHERE TenLh IS NOT NULL;",
+    (err, results, fields) => {
+      if (err) {
+        console.error("Lỗi truy vấn:", err);
+        return;
+      }
+
+      // Xử lý kết quả dữ liệu ở đây
+      console.log("Dữ liệu từ bảng loaihang:", results);
+
+      // Hiển thị trang HTML với dữ liệu từ cơ sở dữ liệu
+      res.render("qlmenu", { data: results });
+    }
+  );
+};
 
 exports.hiennhacungcap = (req, res) => {
   let successMessage = null;
@@ -563,7 +604,6 @@ exports.hiennhacungcap1 = (req, res) => {
     }
   );
 };
-
 exports.hienmenu1 = (req, res) => {
   dB.query(
     "SELECT TenLh FROM loaihang WHERE TenLh IS NOT NULL;",
@@ -699,20 +739,7 @@ exports.suanhanvien = (req, res) => {
     res.render("editttnhanvien", { employee: results });
   });
 };
-exports.suamenu = (req, res) => {
-  const maMn = req.params.MaMn;
-  const sql = "SELECT * FROM menu WHERE MaMn = ?";
 
-  dB.query(sql, maMn, (err, results) => {
-    if (err) {
-      console.error("Lỗi truy vấn:", err);
-      return;
-    }
-    // Xử lý kết quả dữ liệu ở đây
-    console.log("Employee: ", results);
-    res.render("suamenu", { employee: results });
-  });
-};
 exports.hiennhanvien = (req, res) => {
   dB.query("SELECT * FROM nhanvien", (err, results, fields) => {
     if (err) {
@@ -949,6 +976,20 @@ exports.suanhanvien = (req, res) => {
     res.render("editttnhanvien", { employee: results });
   });
 };
+exports.suamenu = (req, res) => {
+  const maMn = req.params.MaMn;
+  const sql = "SELECT * FROM menu WHERE MaMn = ?";
+
+  dB.query(sql, maMn, (err, results) => {
+    if (err) {
+      console.error("Lỗi truy vấn:", err);
+      return;
+    }
+    // Xử lý kết quả dữ liệu ở đây
+    console.log("Employee: ", results);
+    res.render("suamenu", { menu: results });
+  });
+};
 //set du liẹu đe sua
 exports.suanhacungcap1 = (req, res) => {
   const maNcc = req.params.MaNcc;
@@ -962,5 +1003,3 @@ exports.suanhacungcap1 = (req, res) => {
     }
   });
 };
-
-

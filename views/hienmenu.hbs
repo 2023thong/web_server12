@@ -197,9 +197,9 @@
                 <td>{{this.Giatien}}</td>
                 <td>{{this.TenLh}}</td>
                 <td>
-                    <a href="/suamenu/{{this.MaMn}}" style="background-color: rgb(242, 47, 47); color: #f5f5f5;">Edit</a>
+                    <a href="/suamenu/{{this.MaMn}}">Sửa</a>
                     <a href="/xoamenu/{{this.MaMn}}" id="delete" class="delete-button"
-                        style="background-color: rgb(64, 64, 232); color: #f5f5f5;">Delete</a>
+                        style="background-color: ; color: rgb(242, 47, 47);">Xóa</a>
                 </td>
         
                 
@@ -243,6 +243,19 @@
 
         });
         return false;
+    });
+</script>
+<script>
+    document.querySelectorAll('.delete-button').forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            const confirmation = confirm('Bạn có chắc chắn muốn xóa đồ uống này không?');
+
+            if (confirmation) {
+                window.location.href = event.target.href;
+            }
+        });
     });
 </script>
 
