@@ -155,6 +155,14 @@
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Notificatin</span>
+                        </a>
+
+                    </div>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="http://localhost:8000/img/user.jpg" alt=""
                                 style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex"> {{#each tenNv}}
@@ -321,7 +329,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row" style="display: none;">
                 <h1>Bảng doanh thu</h1>
                 <table class="product-table">
@@ -464,26 +471,27 @@ data = labels.map(function (ngay) {
                     document.getElementById('day2Revenue').innerText = `${yesterdayRevenue.toFixed(0)}VND`;
                     document.getElementById('todayRevenueValue').innerText = `${averageRevenue.toFixed(0)}VND`;
                     document.getElementById('totalRevenueValue').innerText = `${totalRevenue.toFixed(0)}VND`;
+                    if (doanhThuTheoNgay.hasOwnProperty(currentDate)) {
+
+var todayRevenue = doanhThuTheoNgay[currentDate].tongThu;
+
+                        document.getElementById('day1Revenue').innerText = `${todayRevenue.toFixed(0)}VND`;
+                    } else {
+                        document.getElementById('day1Revenue').innerText = '0 VND';
+                    }
+
+                    var yesterdayDate = moment().subtract(1, 'days').format('DD/MM/YYYY');
+
+                    if (doanhThuTheoNgay.hasOwnProperty(yesterdayDate)) {
+                        var yesterdayRevenue = doanhThuTheoNgay[yesterdayDate].tongThu;
+                        document.getElementById('day2Revenue').innerText = `${yesterdayRevenue.toFixed(0)}VND`;
+                    } else {
+                        document.getElementById('day2Revenue').innerText = '0 VND';
+                    }
+                    document.getElementById('todayRevenueValue').innerText = `${averageRevenueMonth.toFixed(0)}VND`;
+                    document.getElementById('totalRevenueValue').innerText = `${totalRevenueMonth.toFixed(0)}VND`;
                 });
             </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             <!-- Back to Top -->
             <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
@@ -512,7 +520,6 @@ data = labels.map(function (ngay) {
             // Hiển thị thông báo
             const successMessage = document.getElementById('successMessage');
             successMessage.classList.remove('hidden');
-
 
 
             // Tắt thông báo sau 5 giây
