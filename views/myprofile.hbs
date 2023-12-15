@@ -81,12 +81,15 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        {{#each Hinhanh}}
+                                         <img class="rounded-circle me-lg-2" src="{{this}}"  style="width: 40px; height: 40px;">
+                        {{/each}}
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
+                        
                            {{#each tenNv}}
                                <p>{{this}}</p>
                              {{/each}}</span>
@@ -102,16 +105,7 @@
                     <a href="/themmenu" class="nav-item nav-link "><i class="fa fa-table me-2"></i>Quản lý Menu</a>
                     <a href="qldoanhthu.hbs" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Quản lý doanh
                         thu</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
-                                class="far fa-file-alt me-2"></i>Pages</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="signin.html" class="dropdown-item">Sign In</a>
-                            <a href="signup.html" class="dropdown-item">Sign Up</a>
-                            <a href="404.html" class="dropdown-item active">404 Error</a>
-                            <a href="blank.html" class="dropdown-item">Blank Page</a>
-                        </div>
-                    </div>
+                    
                 </div>
             </nav>
         </div>
@@ -189,10 +183,18 @@
                        
                        
                         
-                         {{#each tenNv}}
-                            <p>Xin chào {{this}}</p>
-                       {{/each}}
-                        
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            {{#each Hinhanh}}
+                                       
+                                 
+                             <img class="rounded-circle me-lg-2" src="{{this}}"
+                                style="width: 40px; height: 40px;">
+                                {{/each}}
+                            <span class="d-none d-lg-inline-flex"> {{#each tenNv}}
+                               <p>Xin chào {{this}}</p>
+                             {{/each}}</span>
+                            
+                         
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="myprofile" class="dropdown-item">My Profile</a>
@@ -230,8 +232,9 @@
                         <div class="tab-pane fade active show" id="account-general">
                             <div class="card-body media align-items-center">
                                 <form action="/upload" method="POST" enctype="multipart/form-data">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt
-                                    class="d-block ui-w-80">
+                                {{#each Hinhanh}}
+                                         <img class="rounded-circle me-lg-2" src="{{this}}"  style="width: 145px; height: 145px;">
+                                     {{/each}}
                                 <div class="media-body ml-4">
                                    
                                   
@@ -269,26 +272,31 @@
                             
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="account-change-password">
+                        <form action="/auth/capnhatmatkhau" method="POST" class="tab-pane fade" id="account-change-password">
                             <div class="card-body pb-2">
-                                <div class="form-group">
-                                    <label class="form-label">Mật khẩu hiện tại</label>
-                                    <input type="password" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Mật khẩu mới</label>
-                                    <input type="password" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Lặp lại mật khẩu mới</label>
-                                    <input type="password" class="form-control">
+                                <div class="form-group input-rounded">
+                                <label class="form-label" hidden>Mã tài khoản</label>
+                                <input type="text" class="form-control" placeholder="Mã tài khoản" id="email" value="{{this.MaNv}}" name="maNv1" style="margin-bottom: 5px; padding: 10px; top: 10px;" hidden readonly />
+                             </div>
+
+                             <div class="form-group input-rounded">
+                                 <label class="form-label">Mật khẩu hiện taị</label>
+                                 <input type="text" class="form-control" placeholder="Mật khẩu" id="email" name="Matkhau1" style="margin-bottom: 5px; padding: 10px; top: 10px;" />
+                             </div>
+                            <div class="form-group input-rounded">
+                                 <label class="form-label">Mật khẩu mới</label>
+                             <input type="text" class="form-control" placeholder="Mật khẩu mới" id="email"  name="Matkhau_new" style="margin-bottom: 5px; padding: 10px; top: 10px;" />
+                             </div>
+                              <div class="form-group input-rounded">
+                                <label class="form-label">Lặp lại mật khẩu mới</label>
+                                <input type="text" class="form-control" placeholder="Lặp lại mật khẩu mới" id="email" name="Matkhau_new2" style="margin-bottom: 5px; padding: 10px; top: 10px;" />
                                 </div>
                                  <div class="text-right mt-3">
-                                    <button type="button" class="btn btn-primary">Lưu thay đổi</button>&nbsp;
-                                    <button type="button" class="btn btn-default">Hủy</button>
+                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>&nbsp;
+                                    <button type="button" class="btn btn-default" onclick="clearInputs()">Hủy</button>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                         <div class="tab-pane fade" id="account-info">
                             <div class="card-body pb-2">
                                 <div class="form-group">
@@ -298,6 +306,7 @@
                                        {{/each}}
                                 </div>
                                 <div class="form-group">
+                                    <label class="form-label">Số điện thoại</label>
                                     {{#each Sdt}}
                                     <input type="text" class="form-control mb-1" value="{{this}}">
                                        {{/each}}
