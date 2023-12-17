@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +28,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <style>
         .product-table {
   border-collapse: collapse;
@@ -177,12 +176,15 @@
            
 <div class="row" style=" width: 93%;">
     <h1>Danh sách Menu</h1> 
+    </script>
     <table class="product-table">
         <thead>
             <tr>
                 <th>Mã Menu</th>
                 <th>Tên đồ uống</th>
                 <th>Giá tiền</th>
+                <th>Tên loại hàng</th>
+                <th>Thao tác</th>
                 
             </tr>
         </thead>
@@ -190,17 +192,20 @@
             {{#each menu}}
             <tr>
                 <td>{{this.MaMn}}</td>
-                <td>{{this.TenLh}}</td>
+                <td>{{this.TenDu}}</td>
                 <td>{{this.Giatien}}</td>
+                <td>{{this.TenLh}}</td>
+                <td>
+                    <a href="/suamenu/{{this.MaMn}}">Sửa</a>
+                    <a href="/xoamenu/{{this.MaMn}}" id="delete" class="delete-button"
+                        style="background-color: ; color: rgb(242, 47, 47);">Xóa</a>
+                </td>
         
                 
             {{/each}}
         </tbody>
     </table>
 </div>
-
-        
-
       
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -215,14 +220,41 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-   
+   <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Đặt một biến để kiểm tra xem tương tác đã xảy ra hay chưa
+        
 
+        // Ẩn thông báo ban đầu
+        const message = document.getElementById('message');
+        message.style.display = 'none';
 
+        // Tương tác với thông báo (ví dụ: khi người dùng click vào nút)
+        const button = document.getElementById('delete');
+        button.addEventListener('click', function (event) {
+            tt = true;
 
+            // Hiển thị thông báo
+            message.style.display = 'block';
 
-   
-    
-    
+        });
+        return false;
+    });
+</script>
+<script>
+    document.querySelectorAll('.delete-button').forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            const confirmation = confirm('Bạn có chắc chắn muốn xóa đồ uống này không?');
+
+            if (confirmation) {
+                window.location.href = event.target.href;
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>

@@ -104,36 +104,6 @@ exports.capNhatNhanVien = (req, res) => {
     }
   );
 };
-exports.capNhatMenu = (req, res) => {
-  console.log(req.body);
-
-  const { maMn, tenmn, giatien, tenLh } = req.body;
-
-  if (!maMn || !tenmn || !giatien || !tenLh) {
-    return res.render("suamenu", {
-      message: "Vui lòng điền đầy đủ thông tin",
-    });
-  }
-
-  dB.query(
-    "UPDATE menu SET TenDu=?, Giatien=?, TenLh=? WHERE MaMn=?",
-    [maMn, tenmn, giatien, tenLh],
-    (error, results) => {
-      if (error) {
-        console.log(error);
-        return res.render("suamenu", {
-          message: "Cập nhật menu thất bại",
-        });
-      } else {
-        console.log(results);
-        return res.render("suamenu", {
-          message: "Cập nhật menu thành công !",
-          Title: "Hien thi danh sách menu",
-        });
-      }
-    }
-  );
-};
 exports.themnhanvien = (req, res) => {
   console.log(req.body);
 
@@ -615,20 +585,6 @@ exports.suanhanvien = (req, res) => {
     res.render("editttnhanvien", { employee: results });
   });
 };
-exports.suamenu = (req, res) => {
-  const maMn = req.params.MaMn;
-  const sql = "SELECT * FROM menu WHERE MaMn = ?";
-
-  dB.query(sql, maMn, (err, results) => {
-    if (err) {
-      console.error("Lỗi truy vấn:", err);
-      return;
-    }
-    // Xử lý kết quả dữ liệu ở đây
-    console.log("Employee: ", results);
-    res.render("suamenu", { employee: results });
-  });
-};
 exports.hiennhanvien = (req, res) => {
   dB.query("SELECT * FROM nhanvien", (err, results, fields) => {
     if (err) {
@@ -943,4 +899,56 @@ exports.capnhatmatkhau = (req, res) => {
       );
     }
   );
+};
+exports.capNhatMenu = (req, res) => {
+  console.log(req.body);
+  const { maMn1, tenmn1, giatien1, tenLh1 } = req.body;
+  if (!maMn1 || !tenmn1 || !giatien1 || !tenLh1) {
+    return res.render("suamenu", {
+      message: "Vui lòng điền đầy đủ thông tin",
+    });
+  }
+  dB.query(
+    "UPDATE menu SET TenDu=?, Giatien=?, TenLh=? WHERE MaMn=?",
+    [tenmn1, giatien1, tenLh1, maMn1],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        return res.render("suamenu", {
+          message: "Vui lòng nhập thông tin cập nhật",
+        });
+      } else {
+        console.log(results);
+        return res.render("suamenu", {
+          message: "Cập nhật menu thành công !",
+          Title: "Hiển thị menu",
+        });
+      }
+    }
+  );
+};
+exports.suamenu = (req, res) => {
+  const maMn1 = req.params.MaMn;
+  const sql = "SELECT * FROM menu WHERE MaMn = ?";
+
+  dB.query(sql, maMn1, (err, results) => {
+    if (err) {
+      console.error("Lỗi truy vấn:", err);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    res.render("suamenu", { menu: results });
+  });
+};
+exports.suamenu1 = (req, res) => {
+  const maMn = req.params.MaMn;
+  const sql = "SELECT * FROM menu WHERE MaMn=?";
+  dB.query(sql, maMn, (err, results) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).send("Internal Server Error");
+    } else {
+      res.render("suamenu", { menu1: results });
+    }
+  });
 };
